@@ -7,6 +7,7 @@ class Clock extends StatelessWidget {
   final int sec;
   final int min;
   final bool isFinished;
+  final bool isStarted;
 
   Clock(
     this.clicked,
@@ -15,6 +16,7 @@ class Clock extends StatelessWidget {
     this.sec,
     this.min,
     this.isFinished,
+    this.isStarted,
   );
   @override
   Widget build(BuildContext context) {
@@ -31,14 +33,21 @@ class Clock extends StatelessWidget {
               fontSize: 70.0, fontWeight: FontWeight.w500, color: color),
         ),
         Visibility(
-          visible: paused && !clicked && !isFinished,
+          visible: paused && !clicked && !isFinished && isStarted,
           child: Text(
             "Tap To Resume",
             style: TextStyle(
-              fontSize: 20.0,
+              fontSize: 18.0,
               color: color,
               fontWeight: FontWeight.w300,
             ),
+          ),
+        ),
+        Visibility(
+          visible: !isStarted,
+          child: Text(
+            "Tap To Start",
+            style: TextStyle(fontSize: 18.0),
           ),
         ),
         Visibility(

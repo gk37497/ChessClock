@@ -24,6 +24,7 @@ class _GamePage extends State<GamePage> {
   bool isPaused = true;
   bool isReseted = false;
   bool isFinished = false;
+  bool isStarted = false;
 
   List numberOfMoveArr = [0, 0];
 
@@ -31,10 +32,10 @@ class _GamePage extends State<GamePage> {
   Timer timer;
 
   void handleChangerBlack(bool isTaped) {
-    print(resetArr.toString());
     setState(() {
       isPaused ? isPaused = false : isClicked = isTaped;
       if (!isPaused && isClicked) numberOfMoveArr[0]++;
+      isStarted = true;
     });
   }
 
@@ -42,6 +43,7 @@ class _GamePage extends State<GamePage> {
     setState(() {
       isPaused ? isPaused = false : isClicked = !isTaped;
       if (!isPaused && !isClicked) numberOfMoveArr[1]++;
+      isStarted = true;
     });
   }
 
@@ -75,6 +77,7 @@ class _GamePage extends State<GamePage> {
     setState(() {
       arr = resetArr;
       isFinished = false;
+      isStarted = false;
       numberOfMoveArr[0] = 0;
       numberOfMoveArr[1] = 0;
     });
@@ -131,7 +134,15 @@ class _GamePage extends State<GamePage> {
               color2,
               isPaused,
               numberOfMoveArr[0],
-              Clock(isClicked, color2, isPaused, arr[0], arr[1], isFinished),
+              Clock(
+                isClicked,
+                color2,
+                isPaused,
+                arr[0],
+                arr[1],
+                isFinished,
+                isStarted,
+              ),
             ),
           ),
           RotatedBox(
@@ -154,7 +165,15 @@ class _GamePage extends State<GamePage> {
             color1,
             isPaused,
             numberOfMoveArr[1],
-            Clock(!isClicked, color1, isPaused, arr[2], arr[3], isFinished),
+            Clock(
+              !isClicked,
+              color1,
+              isPaused,
+              arr[2],
+              arr[3],
+              isFinished,
+              isStarted,
+            ),
           ),
         ],
       ),
